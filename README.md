@@ -30,3 +30,4 @@ npx ajv-cli validate -s schema/manifest.schema.json -d registry/community/your-i
 - [Xtension Marketplace](https://xtension.xtrinel.com)
 - [VAAST](https://xtrinel.com/vaast)
 - [Xtrinel](https://xtrinel.com)
+
