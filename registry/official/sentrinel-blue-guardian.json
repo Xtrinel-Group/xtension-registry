@@ -1,0 +1,18 @@
+{
+  "id": "sentrinel-blue-guardian",
+  "name": "Blue Guardian",
+  "version": "0.1.0",
+  "description": "Correlates proxy capture history to surface behavioral anomalies.",
+  "author": "Xtrinel",
+  "tier": "pro",
+  "permissions": [
+    "proxy.read",
+    "session.read",
+    "ui.panel"
+  ],
+  "entrypoint": "dist/index.js",
+  "uiType": "panel",
+  "minVaastVersion": "1.0.0",
+  "r2Path": "sentrinels/sentrinel-blue-guardian-v0.1.0.zip",
+  "lastUpdated": "2026-06-11T06:00:34Z"
+}
