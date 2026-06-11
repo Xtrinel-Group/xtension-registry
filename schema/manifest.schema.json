@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Xtension Manifest",
+  "type": "object",
+  "required": ["id", "name", "version", "description", "author", "entrypoint", "permissions", "tier"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "description": { "type": "string", "maxLength": 200 },
+    "author": { "type": "string" },
+    "githubUrl": { "type": "string", "format": "uri" },
+    "entrypoint": { "type": "string" },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "proxy.read", "proxy.write",
+          "scanner.read", "scanner.write",
+          "logger.read",
+          "ui.tab", "ui.panel",
+          "session.read",
+          "http.fetch"
+        ]
+      }
+    },
+    "tier": { "type": "string", "enum": ["free", "pro"] },
+    "minVaastVersion": { "type": "string" },
+    "downloadUrl": { "type": "string", "format": "uri" },
+    "checksum": { "type": "string" },
+    "uiType": { "type": "string", "enum": ["tab", "panel", "none"] }
+  }
+}

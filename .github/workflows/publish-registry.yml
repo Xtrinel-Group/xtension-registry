@@ -1,0 +1,53 @@
+name: Publish Registry
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'registry/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build registry.json
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+
+          const dirs = ['registry/official', 'registry/community'];
+          const xtensions = [];
+
+          for (const dir of dirs) {
+            if (!fs.existsSync(dir)) continue;
+            for (const file of fs.readdirSync(dir)) {
+              if (!file.endsWith('.json')) continue;
+              const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
+              xtensions.push(data);
+            }
+          }
+
+          const registry = {
+            version: '1',
+            updatedAt: new Date().toISOString(),
+            xtensions,
+          };
+
+          fs.writeFileSync('registry.json', JSON.stringify(registry, null, 2) + '\n');
+          console.log('Built registry.json with ' + xtensions.length + ' xtensions');
+          "
+
+      - name: Upload to Cloudflare R2
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          aws-region: auto
+
+      - run: |
+          aws s3 cp registry.json s3://vaast-xtensions/registry/registry.json \
+            --endpoint-url ${{ secrets.R2_ENDPOINT }} \
+            --content-type application/json
