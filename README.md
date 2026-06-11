@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://assets.xtrinel.com/xtension-logo.svg" alt="Xtension Registry" width="320" />
+</p>
+
 # Xtension Registry
 
 The community plugin registry for VAAST Xtensions. This repository powers the Xtension marketplace at [xtension.xtrinel.com](https://xtension.xtrinel.com).
