@@ -1,7 +1,7 @@
 {
   "id": "sentrinel-emerald-vaultkeeper",
   "name": "Emerald Vaultkeeper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Detects PII and secret leakage passively across all proxy captures.",
   "author": "Xtrinel",
   "tier": "pro",
@@ -13,6 +13,6 @@
   "entrypoint": "dist/index.js",
   "uiType": "panel",
   "minVaastVersion": "1.0.0",
-  "r2Path": "sentrinels/sentrinel-emerald-vaultkeeper-v0.1.0.zip",
-  "lastUpdated": "2026-06-12T01:59:24Z"
+  "r2Path": "sentrinels/sentrinel-emerald-vaultkeeper-v0.1.1.zip",
+  "lastUpdated": "2026-06-12T05:07:15Z"
 }
