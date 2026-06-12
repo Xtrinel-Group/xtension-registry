@@ -1,7 +1,7 @@
 {
   "id": "sentrinel-spectral",
   "name": "Spectral",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Visual attack graph and coverage tracker across all discovered surfaces.",
   "author": "Xtrinel",
   "tier": "pro",
@@ -13,6 +13,6 @@
   "entrypoint": "dist/index.js",
   "uiType": "tab",
   "minVaastVersion": "1.0.0",
-  "r2Path": "sentrinels/sentrinel-spectral-v0.1.0.zip",
-  "lastUpdated": "2026-06-12T01:27:41Z"
+  "r2Path": "sentrinels/sentrinel-spectral-v0.1.1.zip",
+  "lastUpdated": "2026-06-12T05:07:30Z"
 }
