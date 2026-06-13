@@ -1,7 +1,7 @@
 {
   "id": "sentrinel-crimson-hunter",
   "name": "Crimson Hunter",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Crawls web apps to discover AI-facing attack surfaces automatically.",
   "author": "Xtrinel",
   "tier": "pro",
@@ -14,6 +14,6 @@
   "entrypoint": "dist/index.js",
   "uiType": "tab",
   "minVaastVersion": "1.0.0",
-  "r2Path": "sentrinels/sentrinel-crimson-hunter-v0.2.2.zip",
-  "lastUpdated": "2026-06-13T14:28:25Z"
+  "r2Path": "sentrinels/sentrinel-crimson-hunter-v0.3.0.zip",
+  "lastUpdated": "2026-06-13T16:44:28Z"
 }
