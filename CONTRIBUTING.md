@@ -36,6 +36,16 @@ The CI pipeline will automatically validate your manifest. A maintainer will rev
 - One manifest file per Xtension
 - Updates to existing Xtensions: bump `version` in the same file and open a new PR
 
+## http.fetch permission requirements
+
+If your Xtension declares `http.fetch` permission, it MUST:
+
+- Only make requests to URLs provided by the user or derived from the active VAAST session target
+- Never make requests to hardcoded third-party URLs without disclosure
+- Document in your manifest description what outbound requests it makes and why
+
+Xtensions that make undisclosed outbound requests will be rejected during review.
+
 ## Review process
 
 1. Automated schema validation runs on every PR
