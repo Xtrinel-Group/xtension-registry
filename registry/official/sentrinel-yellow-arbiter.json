@@ -1,7 +1,7 @@
 {
   "id": "sentrinel-yellow-arbiter",
   "name": "Yellow Arbiter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Replays requests across privilege levels to find RBAC and scope bypass.",
   "author": "Xtrinel",
   "tier": "pro",
@@ -14,6 +14,6 @@
   "entrypoint": "dist/index.js",
   "uiType": "tab",
   "minVaastVersion": "1.0.0",
-  "r2Path": "sentrinels/sentrinel-yellow-arbiter-v0.1.1.zip",
-  "lastUpdated": "2026-06-12T05:07:17Z"
+  "r2Path": "sentrinels/sentrinel-yellow-arbiter-v0.1.2.zip",
+  "lastUpdated": "2026-06-13T02:20:45Z"
 }
