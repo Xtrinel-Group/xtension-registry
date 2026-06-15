@@ -1,0 +1,14 @@
+{
+  "id": "mezo",
+  "name": "Mezo",
+  "version": "0.1.0",
+  "description": "Scan history forensics for VAAST. Surfaces repeated patterns, persistent anomalies, and behavioral trends across proxy captures in the current session.",
+  "author": "AnishKajan",
+  "githubUrl": "https://github.com/AnishKajan/Mezo-Xtension",
+  "entrypoint": "dist/index.js",
+  "permissions": ["proxy.read", "scanner.write", "ui.tab", "session.read"],
+  "tier": "free",
+  "minVaastVersion": "1.0.0",
+  "uiType": "tab",
+  "downloadUrl": "https://github.com/AnishKajan/Mezo-Xtension/releases/download/v0.1.0/mezo.zip"
+}
