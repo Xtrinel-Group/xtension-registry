@@ -1,48 +1,74 @@
-name: Publish Registry
+name: Validate Manifests
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'registry/community/**'
+      - 'registry/official/**'
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
-  publish:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Build registry.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm install -g ajv-cli ajv-formats
+
+      - name: Find changed manifest files
+        id: changed
         run: |
-          node -e "
-          const fs = require('fs');
-          const path = require('path');
+          FILES=$(git diff --name-only --diff-filter=AM origin/main HEAD -- 'registry/community/*.json' 'registry/official/*.json')
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$FILES" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
 
-          const dirs = ['registry/official', 'registry/community'];
-          const xtensions = [];
-
-          for (const dir of dirs) {
-            if (!fs.existsSync(dir)) continue;
-            for (const file of fs.readdirSync(dir)) {
-              if (!file.endsWith('.json')) continue;
-              const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
-              xtensions.push(data);
-            }
-          }
-
-          const registry = {
-            version: '1',
-            updatedAt: new Date().toISOString(),
-            xtensions,
-          };
-
-          fs.writeFileSync('registry.json', JSON.stringify(registry, null, 2) + '\n');
-          console.log('Built registry.json with ' + xtensions.length + ' xtensions');
-          "
-
-      - name: Upload to Cloudflare R2
+      - name: Validate manifests against schema
+        id: validate
         run: |
-          AWS_ACCESS_KEY_ID="${{ secrets.R2_ACCESS_KEY_ID }}" \
-          AWS_SECRET_ACCESS_KEY="${{ secrets.R2_SECRET_ACCESS_KEY }}" \
-          AWS_DEFAULT_REGION="auto" \
-          aws s3 cp registry.json s3://vaast-xtensions/registry/registry.json \
-            --endpoint-url "${{ secrets.R2_ENDPOINT }}"
+          RESULT=""
+          EXIT=0
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            if ajv validate -s schema/manifest.schema.json -d "$file" --spec=draft7 -c ajv-formats 2>&1; then
+              RESULT="${RESULT}| \`${file}\` | PASS |"$'\n'
+            else
+              RESULT="${RESULT}| \`${file}\` | FAIL |"$'\n'
+              EXIT=1
+            fi
+          done <<< "${{ steps.changed.outputs.files }}"
+          echo "table<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$RESULT" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+          echo "exit_code=$EXIT" >> "$GITHUB_OUTPUT"
+
+      - name: Comment on PR
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const table = `${{ steps.validate.outputs.table }}`;
+            const passed = '${{ steps.validate.outputs.exit_code }}' === '0';
+            const status = passed ? 'All manifests valid.' : 'One or more manifests failed validation.';
+            const body = `## Manifest Validation\n\n${status}\n\n| File | Status |\n|------|--------|\n${table}`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Fail if invalid
+        if: steps.validate.outputs.exit_code != '0'
+        run: exit 1
