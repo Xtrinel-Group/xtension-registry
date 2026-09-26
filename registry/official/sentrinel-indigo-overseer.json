@@ -1,7 +1,7 @@
 {
   "id": "sentrinel-indigo-overseer",
   "name": "Indigo Overseer",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Chains multi-step attack sequences into automated workflows.",
   "author": "Xtrinel",
   "tier": "pro",
@@ -15,6 +15,6 @@
   "entrypoint": "dist/index.js",
   "uiType": "tab",
   "minVaastVersion": "1.0.0",
-  "r2Path": "sentrinels/sentrinel-indigo-overseer-v0.2.0.zip",
-  "lastUpdated": "2026-06-15T01:30:59Z"
+  "r2Path": "sentrinels/sentrinel-indigo-overseer-v0.3.0.zip",
+  "lastUpdated": "2026-09-26T21:31:56Z"
 }
