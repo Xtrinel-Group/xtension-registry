@@ -24,47 +24,100 @@ jobs:
           const official = [];
           const community = [];
 
-          const officialDir = 'registry/official';
-          const communityDir = 'registry/community';
+          const dirs = [
+            { path: 'registry/official', target: official },
+            { path: 'registry/community', target: community }
+          ];
 
-          if (fs.existsSync(officialDir)) {
-            fs.readdirSync(officialDir)
-              .filter(f => f.endsWith('.json'))
-              .forEach(f => {
-                const data = JSON.parse(fs.readFileSync(path.join(officialDir, f)));
-                official.push(data);
-              });
+          for (const dir of dirs) {
+            if (!fs.existsSync(dir.path)) continue;
+            for (const file of fs.readdirSync(dir.path)) {
+              if (!file.endsWith('.json')) continue;
+              const data = JSON.parse(fs.readFileSync(path.join(dir.path, file), 'utf8'));
+              dir.target.push(data);
+            }
           }
 
-          if (fs.existsSync(communityDir)) {
-            fs.readdirSync(communityDir)
-              .filter(f => f.endsWith('.json') && f !== '.gitkeep')
-              .forEach(f => {
-                const data = JSON.parse(fs.readFileSync(path.join(communityDir, f)));
-                community.push(data);
-              });
-          }
+          const registry = {
+            official,
+            community,
+            updatedAt: new Date().toISOString(),
+          };
 
-          const registry = { official, community, updatedAt: new Date().toISOString() };
-          fs.writeFileSync('registry.json', JSON.stringify(registry, null, 2));
-          console.log('Built registry.json with', official.length, 'official and', community.length, 'community xtensions');
+          fs.writeFileSync('registry.json', JSON.stringify(registry, null, 2) + '\n');
+          console.log('Built registry.json with ' + official.length + ' official + ' + community.length + ' community xtensions');
           "
 
-      - name: Upload to R2
-        env:
-          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+      - name: Verify R2 packages exist
         run: |
-          curl -fsSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-          unzip -q awscliv2.zip
-          sudo ./aws/install --update
+          AWS_ACCESS_KEY_ID="${{ secrets.R2_ACCESS_KEY_ID }}" \
+          AWS_SECRET_ACCESS_KEY="${{ secrets.R2_SECRET_ACCESS_KEY }}" \
+          AWS_DEFAULT_REGION="auto" \
+          node -e "
+          const fs = require('fs');
+          const { execSync } = require('child_process');
 
-          AWS_ACCESS_KEY_ID=$R2_ACCESS_KEY_ID \
-          AWS_SECRET_ACCESS_KEY=$R2_SECRET_ACCESS_KEY \
-          aws s3 cp registry.json s3://$R2_BUCKET/registry/registry.json \
-            --endpoint-url $R2_ENDPOINT \
+          const registry = JSON.parse(fs.readFileSync('registry.json', 'utf8'));
+          const allXtensions = [...registry.official, ...registry.community];
+
+          let missingCount = 0;
+          let checksumMissingCount = 0;
+
+          console.log('Verifying R2 packages for ' + allXtensions.length + ' xtensions...');
+          console.log('');
+
+          for (const xtension of allXtensions) {
+            const id = xtension.id;
+            const r2Path = xtension.r2Path;
+            const downloadUrl = xtension.downloadUrl;
+            const checksum = xtension.checksum;
+
+            if (!checksum) {
+              console.error('MISSING checksum: ' + id);
+              checksumMissingCount++;
+              continue;
+            }
+
+            if (!r2Path && !downloadUrl) {
+              console.error('MISSING r2Path or downloadUrl: ' + id);
+              missingCount++;
+              continue;
+            }
+
+            if (r2Path) {
+              try {
+                execSync(
+                  'aws s3api head-object --bucket vaast-xtensions --key \"' + r2Path + '\" --endpoint-url \"${{ secrets.R2_ENDPOINT }}\"',
+                  { stdio: 'pipe' }
+                );
+                console.log('OK ' + id + ': ' + r2Path);
+              } catch (error) {
+                console.error('MISSING R2 package: ' + id + ' at ' + r2Path);
+                missingCount++;
+              }
+            } else if (downloadUrl) {
+              console.log('WARN ' + id + ': uses downloadUrl (not verified)');
+            }
+          }
+
+          console.log('');
+          console.log('Total: ' + allXtensions.length + ', missing checksums: ' + checksumMissingCount + ', missing packages: ' + missingCount);
+
+          if (checksumMissingCount > 0 || missingCount > 0) {
+            console.error('VERIFICATION FAILED: missing checksums or packages.');
+            process.exit(1);
+          }
+
+          console.log('All packages verified. Proceeding.');
+          "
+
+      - name: Upload to Cloudflare R2
+        run: |
+          AWS_ACCESS_KEY_ID="${{ secrets.R2_ACCESS_KEY_ID }}" \
+          AWS_SECRET_ACCESS_KEY="${{ secrets.R2_SECRET_ACCESS_KEY }}" \
+          AWS_DEFAULT_REGION="auto" \
+          aws s3 cp registry.json s3://vaast-xtensions/registry/registry.json \
+            --endpoint-url "${{ secrets.R2_ENDPOINT }}" \
             --content-type application/json \
             --cache-control "public, max-age=60"
 

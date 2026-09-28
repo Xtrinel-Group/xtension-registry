@@ -14,5 +14,6 @@
   "uiType": "panel",
   "minVaastVersion": "1.0.0",
   "r2Path": "sentrinels/sentrinel-emerald-vaultkeeper-v0.2.0.zip",
-  "lastUpdated": "2026-06-15T01:29:42Z"
+  "lastUpdated": "2026-06-15T01:29:42Z",
+  "checksum": "b18372fa615bc7b740f16c4da247b8e03f262474c310b33de834685af413d7cc"
 }

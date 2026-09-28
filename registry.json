@@ -1,5 +1,184 @@
 {
   "version": "1",
-  "updatedAt": "2026-06-10T00:00:00Z",
-  "xtensions": []
+  "updatedAt": "2026-09-28T12:50:48.936Z",
+  "xtensions": [
+    {
+      "id": "sentrinel-blaze-enforcer",
+      "name": "Blaze Enforcer",
+      "version": "0.2.0",
+      "description": "Fuzzes AI endpoints with payload sets from your library.",
+      "author": "Xtrinel",
+      "tier": "pro",
+      "permissions": [
+        "proxy.read",
+        "proxy.write",
+        "scanner.write",
+        "ui.tab"
+      ],
+      "entrypoint": "dist/index.js",
+      "uiType": "tab",
+      "minVaastVersion": "1.0.0",
+      "r2Path": "sentrinels/sentrinel-blaze-enforcer-v0.2.0.zip",
+      "lastUpdated": "2026-06-15T01:29:43Z",
+      "checksum": "50a1f24c388a4f79203fb3b51b3cd1755b89b8c865504be3dcca5ec651d9f35c"
+    },
+    {
+      "id": "sentrinel-blue-guardian",
+      "name": "Blue Guardian",
+      "version": "0.2.0",
+      "description": "Correlates proxy capture history to surface behavioral anomalies.",
+      "author": "Xtrinel",
+      "tier": "pro",
+      "permissions": [
+        "proxy.read",
+        "session.read",
+        "ui.panel"
+      ],
+      "entrypoint": "dist/index.js",
+      "uiType": "panel",
+      "minVaastVersion": "1.0.0",
+      "r2Path": "sentrinels/sentrinel-blue-guardian-v0.2.0.zip",
+      "lastUpdated": "2026-06-15T01:29:45Z",
+      "checksum": "cdc7a7b60ab1fb13202c6c3f2d65a644314db2a433a1c7dcd745589ac07534fe"
+    },
+    {
+      "id": "sentrinel-crimson-hunter",
+      "name": "Crimson Hunter",
+      "version": "0.7.0",
+      "description": "Crawls web apps to discover AI-facing attack surfaces automatically.",
+      "author": "Xtrinel",
+      "tier": "pro",
+      "permissions": [
+        "proxy.read",
+        "scanner.write",
+        "http.fetch",
+        "ui.tab"
+      ],
+      "entrypoint": "dist/index.js",
+      "uiType": "tab",
+      "minVaastVersion": "1.0.0",
+      "r2Path": "sentrinels/sentrinel-crimson-hunter-v0.7.0.zip",
+      "lastUpdated": "2026-06-14T03:43:42Z",
+      "checksum": "8128baddfc3efe1dd036e0f2c0fe915b61acac2c931413a48fc97f03b381d0df"
+    },
+    {
+      "id": "sentrinel-emerald-vaultkeeper",
+      "name": "Emerald Vaultkeeper",
+      "version": "0.2.0",
+      "description": "Detects PII and secret leakage passively across all proxy captures.",
+      "author": "Xtrinel",
+      "tier": "pro",
+      "permissions": [
+        "proxy.read",
+        "logger.read",
+        "ui.panel"
+      ],
+      "entrypoint": "dist/index.js",
+      "uiType": "panel",
+      "minVaastVersion": "1.0.0",
+      "r2Path": "sentrinels/sentrinel-emerald-vaultkeeper-v0.2.0.zip",
+      "lastUpdated": "2026-06-15T01:29:42Z",
+      "checksum": "b18372fa615bc7b740f16c4da247b8e03f262474c310b33de834685af413d7cc"
+    },
+    {
+      "id": "sentrinel-indigo-overseer",
+      "name": "Indigo Overseer",
+      "version": "0.3.0",
+      "description": "Chains multi-step attack sequences into automated workflows.",
+      "author": "Xtrinel",
+      "tier": "pro",
+      "permissions": [
+        "proxy.read",
+        "proxy.write",
+        "scanner.write",
+        "http.fetch",
+        "ui.tab"
+      ],
+      "entrypoint": "dist/index.js",
+      "uiType": "tab",
+      "minVaastVersion": "1.0.0",
+      "r2Path": "sentrinels/sentrinel-indigo-overseer-v0.3.0.zip",
+      "lastUpdated": "2026-06-15T01:30:59Z",
+      "checksum": "14aeaa29f0dca066ac6675f1a8441a3483036743eb39f1fe7b54f57ace890c97"
+    },
+    {
+      "id": "sentrinel-silver-auditor",
+      "name": "Silver Auditor",
+      "version": "0.2.2",
+      "description": "Generates structured pentest reports from completed session data.",
+      "author": "Xtrinel",
+      "tier": "pro",
+      "permissions": [
+        "scanner.read",
+        "session.read",
+        "ui.tab"
+      ],
+      "entrypoint": "dist/index.js",
+      "uiType": "tab",
+      "minVaastVersion": "1.0.0",
+      "r2Path": "sentrinels/sentrinel-silver-auditor-v0.2.2.zip",
+      "lastUpdated": "2026-06-14T05:39:30Z",
+      "checksum": "64af62286a5af8079a554f3e455b07beb9c07eaef86c5301563fc191c2c29377"
+    },
+    {
+      "id": "sentrinel-spectral",
+      "name": "Spectral",
+      "version": "0.2.0",
+      "description": "Visual attack graph and coverage tracker across all discovered surfaces.",
+      "author": "Xtrinel",
+      "tier": "pro",
+      "permissions": [
+        "scanner.read",
+        "session.read",
+        "ui.tab"
+      ],
+      "entrypoint": "dist/index.js",
+      "uiType": "tab",
+      "minVaastVersion": "1.0.0",
+      "r2Path": "sentrinels/sentrinel-spectral-v0.2.0.zip",
+      "lastUpdated": "2026-06-15T01:29:47Z",
+      "checksum": "bef774c6161b996b1d125d86606efad27e9026d7022f7d829ea50628b848b1d2"
+    },
+    {
+      "id": "sentrinel-yellow-arbiter",
+      "name": "Yellow Arbiter",
+      "version": "0.2.0",
+      "description": "Replays requests across privilege levels to find RBAC and scope bypass.",
+      "author": "Xtrinel",
+      "tier": "pro",
+      "permissions": [
+        "proxy.read",
+        "proxy.write",
+        "scanner.write",
+        "ui.tab"
+      ],
+      "entrypoint": "dist/index.js",
+      "uiType": "tab",
+      "minVaastVersion": "1.0.0",
+      "r2Path": "sentrinels/sentrinel-yellow-arbiter-v0.2.0.zip",
+      "lastUpdated": "2026-06-14T21:08:46Z",
+      "checksum": "daf9976c1c11a9e850ba5c9c06f739cfa87be70b942d1bb75d17930ca49829ac"
+    },
+    {
+      "id": "mezo",
+      "name": "Mezo",
+      "version": "0.2.0",
+      "description": "Scan history forensics — surfaces patterns, anomalies, and behavioral trends across proxy captures.",
+      "author": "AnishKajan",
+      "githubUrl": "https://github.com/AnishKajan/Mezo-Xtension",
+      "entrypoint": "dist/index.js",
+      "permissions": [
+        "proxy.read",
+        "scanner.write",
+        "ui.tab",
+        "session.read"
+      ],
+      "tier": "free",
+      "minVaastVersion": "1.0.0",
+      "uiType": "tab",
+      "downloadUrl": "https://github.com/AnishKajan/Mezo-Xtension/releases/download/v0.2.0/mezo-v0.2.0.zip",
+      "lastUpdated": "2026-06-15T08:30:00Z",
+      "checksum": "bea1cf5a738eb191261b0a05735aad17809af9e5a93b994335dbaff7e8da0052"
+    }
+  ]
 }

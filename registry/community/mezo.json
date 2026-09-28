@@ -2,14 +2,21 @@
   "id": "mezo",
   "name": "Mezo",
   "version": "0.2.0",
-  "description": "Scan history forensics — surfaces patterns, anomalies, and behavioral trends across proxy captures.",
+  "description": "Scan history forensics \u2014 surfaces patterns, anomalies, and behavioral trends across proxy captures.",
   "author": "AnishKajan",
   "githubUrl": "https://github.com/AnishKajan/Mezo-Xtension",
   "entrypoint": "dist/index.js",
-  "permissions": ["proxy.read", "scanner.write", "ui.tab", "session.read"],
+  "permissions": [
+    "proxy.read",
+    "scanner.write",
+    "ui.tab",
+    "session.read"
+  ],
   "tier": "free",
   "minVaastVersion": "1.0.0",
   "uiType": "tab",
-  "downloadUrl": "https://github.com/AnishKajan/Mezo-Xtension/releases/download/v0.2.0/mezo-v0.2.0.zip",
-  "lastUpdated": "2026-06-15T08:30:00Z"
+  "lastUpdated": "2026-06-15T08:30:00Z",
+  "checksum": "7ea7f09603b4215917f8f1ea2af6141e20d06e4a09605b2503246c23d83a0494",
+  "r2Path": "community/mezo-v0.2.0.zip",
+  "api_version": 2
 }
