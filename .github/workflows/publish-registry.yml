@@ -19,7 +19,7 @@ jobs:
 
       - name: Enforce community Xtension approval gate
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ORG_MEMBERS_READ_TOKEN }}
         run: |
           set -e
 
