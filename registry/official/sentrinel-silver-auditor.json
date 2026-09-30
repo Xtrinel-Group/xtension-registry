@@ -12,7 +12,7 @@
   ],
   "entrypoint": "dist/index.js",
   "uiType": "tab",
-  "minVaastVersion": "1.0.0",
+  "minVaastVersion": "0.3.2",
   "api_version": 2,
   "r2Path": "sentrinels/sentrinel-silver-auditor-v0.2.2.zip",
   "lastUpdated": "2026-06-14T05:39:30Z",

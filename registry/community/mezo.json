@@ -13,7 +13,7 @@
     "session.read"
   ],
   "tier": "free",
-  "minVaastVersion": "1.0.0",
+  "minVaastVersion": "0.3.2",
   "uiType": "tab",
   "lastUpdated": "2026-06-15T08:30:00Z",
   "checksum": "7ea7f09603b4215917f8f1ea2af6141e20d06e4a09605b2503246c23d83a0494",
