@@ -1,0 +1,8 @@
+# Xtension Registry Code Owners
+# Maintainer approval required for community Xtensions before publish
+
+# Community Xtensions require maintainer review
+/registry/community/ @Xtrinel-Group/xtension-maintainers
+
+# Official Xtrinel Xtensions
+/registry/official/ @Xtrinel-Group/xtrinel-eng

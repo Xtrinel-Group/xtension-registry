@@ -7,12 +7,99 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read  # Required for PR approval verification
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for changed-file detection
+
+      - name: Enforce community Xtension approval gate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+
+          # Detect changed community manifests in this push
+          # Use HEAD~1..HEAD for single commits, or merge-base for PR merges
+          BASE_REF="HEAD~1"
+          if [ "${{ github.event_name }}" = "push" ] && [ -n "${{ github.event.before }}" ]; then
+            BASE_REF="${{ github.event.before }}"
+          fi
+
+          CHANGED_COMMUNITY=$(git diff --name-only "$BASE_REF" HEAD | grep '^registry/community/.*\.json$' || true)
+
+          if [ -z "$CHANGED_COMMUNITY" ]; then
+            echo "No community manifests changed. Skipping approval gate."
+            exit 0
+          fi
+
+          echo "Community manifest(s) changed:"
+          echo "$CHANGED_COMMUNITY"
+          echo ""
+
+          # Find the PR number for this merge commit
+          # Merge commits have format "Merge pull request #123 from..."
+          MERGE_MESSAGE=$(git log -1 --pretty=%s HEAD)
+          PR_NUMBER=$(echo "$MERGE_MESSAGE" | grep -oE '#[0-9]+' | head -1 | tr -d '#' || echo "")
+
+          if [ -z "$PR_NUMBER" ]; then
+            echo "ERROR: Community manifests changed, but no PR number found in merge commit."
+            echo "Community Xtensions MUST go through PR review by maintainers."
+            echo "Direct pushes to main are not allowed for registry/community/."
+            exit 1
+          fi
+
+          echo "Found PR #$PR_NUMBER. Verifying maintainer approval..."
+
+          # Query GitHub API for PR reviews
+          # Check if PR has at least one approval from @Xtrinel-Group/xtension-maintainers
+          # This uses the GraphQL API for team membership check
+
+          # Get PR reviews
+          REVIEWS=$(gh api repos/${{ github.repository }}/pulls/$PR_NUMBER/reviews \
+            --jq '[.[] | select(.state == "APPROVED") | .user.login] | unique | .[]' || echo "")
+
+          if [ -z "$REVIEWS" ]; then
+            echo "ERROR: PR #$PR_NUMBER has NO approving reviews."
+            echo "Community Xtensions require approval from @Xtrinel-Group/xtension-maintainers."
+            exit 1
+          fi
+
+          echo "Approving reviewers:"
+          echo "$REVIEWS"
+          echo ""
+
+          # Verify at least one reviewer is in xtension-maintainers team
+          # Use GitHub API to check team membership
+          MAINTAINER_FOUND=false
+
+          for REVIEWER in $REVIEWS; do
+            # Check if reviewer is in Xtrinel-Group/xtension-maintainers team
+            IS_MAINTAINER=$(gh api \
+              orgs/Xtrinel-Group/teams/xtension-maintainers/memberships/$REVIEWER \
+              --silent 2>/dev/null && echo "yes" || echo "no")
+
+            if [ "$IS_MAINTAINER" = "yes" ]; then
+              echo "✓ Maintainer approval verified: $REVIEWER is in @Xtrinel-Group/xtension-maintainers"
+              MAINTAINER_FOUND=true
+              break
+            fi
+          done
+
+          if [ "$MAINTAINER_FOUND" = "false" ]; then
+            echo "ERROR: No maintainer approval found."
+            echo "Community Xtensions require approval from @Xtrinel-Group/xtension-maintainers."
+            echo "Reviewers found: $REVIEWS"
+            echo "None are members of the xtension-maintainers team."
+            exit 1
+          fi
+
+          echo ""
+          echo "✓ Community Xtension approval gate passed."
 
       - name: Build registry.json
         id: build
