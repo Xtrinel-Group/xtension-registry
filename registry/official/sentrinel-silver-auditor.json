@@ -1,20 +1,21 @@
 {
   "id": "sentrinel-silver-auditor",
   "name": "Silver Auditor",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Generates structured pentest reports from completed session data.",
   "author": "Xtrinel",
   "tier": "pro",
   "permissions": [
     "scanner.read",
     "session.read",
-    "ui.tab"
+    "ui.tab",
+    "file.save"
   ],
   "entrypoint": "dist/index.js",
   "uiType": "tab",
-  "minVaastVersion": "0.3.2",
+  "minVaastVersion": "1.0.0",
   "api_version": 2,
-  "r2Path": "sentrinels/sentrinel-silver-auditor-v0.2.2.zip",
-  "lastUpdated": "2026-06-14T05:39:30Z",
-  "checksum": "82e6f05e674f863db5868f8ce550590e0f6e0b41fe2cc5708de8502d135724fe"
+  "r2Path": "sentrinels/sentrinel-silver-auditor-v0.2.3.zip",
+  "lastUpdated": "2026-11-04T03:32:38Z",
+  "checksum": "34d57b631aafdb6bce90f0f653f4c577e79d7c0f160be9f3523e896839276074"
 }
