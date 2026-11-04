@@ -1,7 +1,7 @@
 {
   "id": "sentrinel-blaze-enforcer",
   "name": "Blaze Enforcer",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Fuzzes AI endpoints with payload sets from your library.",
   "author": "Xtrinel",
   "tier": "pro",
@@ -13,9 +13,9 @@
   ],
   "entrypoint": "dist/index.js",
   "uiType": "tab",
-  "minVaastVersion": "0.3.2",
+  "minVaastVersion": "1.0.0",
   "api_version": 2,
-  "r2Path": "sentrinels/sentrinel-blaze-enforcer-v0.2.0.zip",
-  "lastUpdated": "2026-06-15T01:29:43Z",
-  "checksum": "7330d3da9a23f57c39da06cf2b2278f76bb46e8d8ea8f234de5a83cdae735b8f"
+  "r2Path": "sentrinels/sentrinel-blaze-enforcer-v0.2.1.zip",
+  "lastUpdated": "2026-11-04T03:34:11Z",
+  "checksum": "e1777172ee874b967dd4282f491abbe4f487452dd9cf627d7c0521faf50cbc03"
 }
