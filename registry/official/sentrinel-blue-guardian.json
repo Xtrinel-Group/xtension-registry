@@ -1,20 +1,21 @@
 {
   "id": "sentrinel-blue-guardian",
   "name": "Blue Guardian",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Correlates proxy capture history to surface behavioral anomalies.",
   "author": "Xtrinel",
   "tier": "pro",
   "permissions": [
     "proxy.read",
     "session.read",
-    "ui.panel"
+    "scanner.write",
+    "ui.tab"
   ],
   "entrypoint": "dist/index.js",
-  "uiType": "panel",
-  "minVaastVersion": "0.3.2",
+  "uiType": "tab",
+  "minVaastVersion": "1.0.0",
   "api_version": 2,
-  "r2Path": "sentrinels/sentrinel-blue-guardian-v0.2.0.zip",
-  "lastUpdated": "2026-06-15T01:29:45Z",
-  "checksum": "8a057eca59ca09a3fddbf8bce56bebe35d5b1d4e4bd5347435e43b340a0ec5ec"
+  "r2Path": "sentrinels/sentrinel-blue-guardian-v0.3.0.zip",
+  "lastUpdated": "2026-11-04T03:36:46Z",
+  "checksum": "04bd778e78d2e10fcf588cc8f29189e895b944936eb16892bbccca82ce3284b8"
 }
