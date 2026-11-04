@@ -1,7 +1,7 @@
 {
   "id": "sentrinel-spectral",
   "name": "Spectral",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Visual attack graph and coverage tracker across all discovered surfaces.",
   "author": "Xtrinel",
   "tier": "pro",
@@ -12,9 +12,8 @@
   ],
   "entrypoint": "dist/index.js",
   "uiType": "tab",
-  "minVaastVersion": "0.3.2",
-  "api_version": 2,
-  "r2Path": "sentrinels/sentrinel-spectral-v0.2.0.zip",
-  "lastUpdated": "2026-06-15T01:29:47Z",
-  "checksum": "2c92975e9fb396f64612427a142d1455fb5497790f1d455fc36fbff528304d8d"
+  "minVaastVersion": "1.0.0",
+  "r2Path": "sentrinels/sentrinel-spectral-v0.2.1.zip",
+  "lastUpdated": "2026-11-04T03:30:28Z",
+  "checksum": "4b7f966e8b88d41c22abb7b65fadcacb6ddcb06b09d51c1b370e2b789612ab7a"
 }
